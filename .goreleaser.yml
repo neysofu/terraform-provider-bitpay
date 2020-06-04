@@ -1,0 +1,22 @@
+project_name: terraform-provider-bitpay
+
+builds:
+  - binary: "{{ .ProjectName }}_{{ .Tag }}"
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    ignore:
+      - goos: darwin
+        goarch: 386
+
+archives:
+  - name_template: "{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      # Only archive the binary
+      - none*
